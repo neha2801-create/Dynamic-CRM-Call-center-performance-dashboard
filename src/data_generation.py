@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
-import random
 import os
+import secrets
 
 def generate_call_data(num_weeks=52):
     dates = [(datetime.now() - timedelta(weeks=x)).strftime('%Y-%m-%d') for x in range(num_weeks)]
@@ -17,7 +17,7 @@ def generate_call_data(num_weeks=52):
     }
     
     for total in data['total_calls']:
-        data['resolved_calls'].append(random.randint(int(total * 0.7), total))
+        data['resolved_calls'].append(secrets.SystemRandom().randint(int(total * 0.7), total))
 
     df = pd.DataFrame(data)
     os.makedirs('data', exist_ok=True)
